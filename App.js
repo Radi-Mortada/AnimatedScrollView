@@ -24,17 +24,9 @@ export default class ScrollableHeader extends Component {
 
     this.state = {
       scrollY: new Animated.Value(0),
-      fadeAnim: new Animated.Value(0),
     };
   }
 
-  componentDidMount() {
-    Animated.timing(  // Animate over time
-      this.state.fadeAnim,  // The animated value to drive
-      {
-        toValue: 100,  // Animate to opacity: 1, or fully opaque
-      }).start();  // Starts the animation
-  }
 
   _renderScrollViewContent() {
     const data = Array.from({ length: 10 });
