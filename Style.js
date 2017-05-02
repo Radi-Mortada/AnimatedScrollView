@@ -11,7 +11,7 @@ export default StyleSheet.create({
         backgroundColor: 'black',
     },
     bar: {
-        marginTop: 100,
+        marginTop: 10,
         height: 32,
         alignItems: 'center',
         justifyContent: 'center',
@@ -21,7 +21,7 @@ export default StyleSheet.create({
         fontSize: 18,
     },
     scrollViewContent: {
-        marginTop: HEADER_MAX_HEIGHT,
+        marginTop: 200,
     },
 
 })

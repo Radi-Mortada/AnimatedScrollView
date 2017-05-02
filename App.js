@@ -6,10 +6,15 @@ import {
   StyleSheet,
   Text,
   View,
+  TextInput
 } from 'react-native';
-const HEADER_MAX_HEIGHT = 200;
-const HEADER_MIN_HEIGHT = 60;
+const HEADER_MAX_HEIGHT = 100;
+const HEADER_MIN_HEIGHT = 0;
 const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
+
+const SEARCH_MAX_HEIGHT = 50;
+const SEARCH_MIN_HEIGHT = 30;
+const SEARCH_SCROLL_DISTANCE = SEARCH_MAX_HEIGHT - SEARCH_MIN_HEIGHT;
 
 var BLACK = 0;
 var RED = 1;
@@ -29,7 +34,7 @@ export default class ScrollableHeader extends Component {
 
 
   _renderScrollViewContent() {
-    const data = Array.from({ length: 10 });
+    const data = Array.from({ length: 30 });
     return (
       <View style={styles.scrollViewContent}>
         {data.map((_, i) =>
@@ -48,6 +53,13 @@ export default class ScrollableHeader extends Component {
       extrapolate: 'clamp',
     });
 
+    const searchHeight = this.state.scrollY.interpolate({
+      inputRange: [0, SEARCH_SCROLL_DISTANCE],
+      outputRange: [SEARCH_MAX_HEIGHT, SEARCH_MIN_HEIGHT],
+      extrapolate: 'clamp',
+    });
+
+
     var bgColor = this.state.scrollY.interpolate({
       inputRange: [0, 100],
       outputRange: ['rgba(56, 45, 108, 1)', 'rgba(255, 255, 255, 0)']
@@ -55,10 +67,19 @@ export default class ScrollableHeader extends Component {
 
     return (
       <View style={styles.fill}>
+        <View style={{ height: 22, backgroundColor: 'transparent' }}></View>
+        <Animated.View style={{ elevation:4,flexDirection: 'row', alignItems: 'center', height: 50, position: 'absolute', left: 10, right: 10, zIndex: 10, top: searchHeight, backgroundColor: 'white' }}>
+          <Image source={{ uri: 'http://www.freeiconspng.com/uploads/search-icon-png-2.png' }} style={{ marginLeft: 5, height: 30, width: 30 }} />
+          <TextInput
+            style={{ flex: 1, height: 40, marginHorizontal: 5 }}
+            underlineColorAndroid='transparent'
+            placeholder='Find your deal !'
+          />
+          <Image source={{ uri: 'http://www.haotu.net/up/3358/512/98-Camera.png' }} style={{ marginRight: 5, height: 30, width: 30 }} />
+
+        </Animated.View>
         <Animated.View style={[styles.header, { backgroundColor: bgColor, height: headerHeight }]}>
-          <View style={{ height: 100, marginHorizontal:10, backgroundColor:'red' }}>
-            <Text style={styles.title}>Title</Text>
-          </View>
+
         </Animated.View>
         <ScrollView
           style={styles.fill}
