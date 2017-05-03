@@ -16,11 +16,6 @@ const SEARCH_MAX_HEIGHT = 50;
 const SEARCH_MIN_HEIGHT = 30;
 const SEARCH_SCROLL_DISTANCE = SEARCH_MAX_HEIGHT - SEARCH_MIN_HEIGHT;
 
-var BLACK = 0;
-var RED = 1;
-var BLUE = 2;
-
-
 export default class ScrollableHeader extends Component {
 
 
@@ -36,7 +31,7 @@ export default class ScrollableHeader extends Component {
   _renderScrollViewContent() {
     const data = Array.from({ length: 30 });
     return (
-      <View style={styles.scrollViewContent}>
+      <View>
         {data.map((_, i) =>
           <View key={i} style={styles.row}>
             <Text>{i}</Text>
@@ -78,11 +73,11 @@ export default class ScrollableHeader extends Component {
           <Image source={{ uri: 'http://www.haotu.net/up/3358/512/98-Camera.png' }} style={{ marginRight: 5, height: 30, width: 30 }} />
 
         </Animated.View>
-        <Animated.View style={[styles.header, { backgroundColor: bgColor, height: headerHeight }]}>
+        <Animated.View style={[{ backgroundColor: bgColor, height: headerHeight }]}>
 
         </Animated.View>
         <ScrollView
-          style={styles.fill}
+          style={[styles.fill]}
           scrollEventThrottle={16}
           onScroll={Animated.event(
             [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }]
@@ -106,4 +101,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  
 });
